@@ -1,8 +1,8 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 //Importamos la accion
-import { getCharacters } from "../../redux/actions";
-import { useDispatch, useSelector } from "react-redux";
-import { CardCharacter } from "../CardCharacter/CardCharacter";
+import { getCharacters } from '../../redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { CardCharacter } from '../CardCharacter/CardCharacter';
 
 const Characters = () => {
   //Hacemos un dispatch de la acción, cuando Characters está montado (en uso), sólo en ese momento (no en Landing)
@@ -18,8 +18,7 @@ const Characters = () => {
 
   //El display:
   return (
-    <div>
-      <h1>CHARACTERS:</h1>
+    <div className='d-flex flex-row flex-wrap justify-content-center'>
       {
         //Mapeamos cada character para displayearlo desde CardCharacter.
         characters.map((character) => {

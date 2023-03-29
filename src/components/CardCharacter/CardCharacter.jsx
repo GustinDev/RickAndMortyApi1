@@ -1,14 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 //Usamos lo enviado desde Characters. Aqui hacemos la plantilla para mapear todo.
 
-export const CardCharacter = ({ id, name, image }) => {
+export const CardCharacter = ({ id, name, image, gender }) => {
   return (
-    <div>
-      <Link to={`/detail/${id}`}>
-        <h1>{name}</h1>
-      </Link>
-      <img src={image} alt="img" style={{ borderRadius: "9rem" }} />
+    <div className='card m-2' style={{ minWidth: '12rem' }}>
+      <img className='card-img-top' src={image} alt='img' style={{}} />
+      <div className='card-body'>
+        <Link to={`/detail/${id}`}>
+          <h5 className='card-title'>{name}</h5>
+          <h5 className='card-title'>Genre: {gender}</h5>
+        </Link>
+      </div>
     </div>
   );
 };
