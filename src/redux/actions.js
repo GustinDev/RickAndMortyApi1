@@ -7,15 +7,13 @@ export const getCharacters = () => {
   //Si hacemos una peticion a una api retornamos una función con dispatch.
   return async function (dispatch) {
     //Le avisamos que estamos haciendo algo asincrono y esperamos la respuesta para guardarla en una variable.
-
     //Axios hace un get de por si, pide la información del api y la guardamos.
-    let response = await axios('https://rickandmortyapi.com/api/character');
-
+    let response = await axios(
+      'http://localhost:3001/rickandmorty/allCharacters'
+    );
     //Le decimos que ejecute la acción a nombre de GET_CHARACTERS y que el payload sea la información.data del api.
-
-    return dispatch({ type: GET_CHARACTERS, payload: response.data.results });
-
-    //Axios nos da un objeto, dentro de ahí está .data dónde estan los datos del api, dentro hay está .results dónde hay un array con los personajes.
+    return dispatch({ type: GET_CHARACTERS, payload: response.data });
+    //Axios nos da un objeto, dentro de ahí está .data dónde estan los datos de la DB.
   };
 };
 
@@ -24,15 +22,31 @@ export const getCharacters = () => {
 //https://rickandmortyapi.com/api/character/${id}
 
 export const getCharacterDetail = (id) => {
-  return function (dispatch) {
-    fetch(`http://localhost:3001/rickandmorty/detail/${id}`)
-      .then((response) => response.json())
-      .then((data) => dispatch({ type: CHARACTER_DETAIL, payload: data }))
-      .catch((error) => {
-        console.log(error);
-      });
+  return async function (dispatch) {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/rickandmorty/detail/${id}`
+      );
+      const data = await response.json();
+      dispatch({ type: CHARACTER_DETAIL, payload: data });
+    } catch (error) {
+      console.log(error);
+    }
   };
 };
+
+//ASYNC GET CHARACTER DETAIL.
+
+// export const getCharacterDetail = (id) => {
+//   return function (dispatch) {
+//     fetch(`http://localhost:3001/rickandmorty/detail/${id}`)
+//       .then((response) => response.json())
+//       .then((data) => dispatch({ type: CHARACTER_DETAIL, payload: data }))
+//       .catch((error) => {
+//         console.log(error);
+//       });
+//   };
+// };
 
 export const cleanDetail = () => {
   return { type: CLEAN_DETAIL };
